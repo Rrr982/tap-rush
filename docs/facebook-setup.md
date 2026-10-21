@@ -85,14 +85,15 @@ The bundle declares its own configuration in `fbapp-config.json`:
 ```json
 {
   "instant_games": {
-    "platform_version": "8.0",
+    "platform_version": "RICH_GAMEPLAY",
     "orientation": "PORTRAIT",
     "navigation_menu_version": "NAV_BAR"
   }
 }
 ```
 
-- `platform_version` has to be `8.0`. Older versions are rejected.
+- `platform_version` must be the supported capability value `RICH_GAMEPLAY`.
+  It is not the SDK version.
 - `orientation` must be `PORTRAIT` (the config value is case-sensitive), which
   matches the game.
 - `navigation_menu_version` is required by the upload validator. `NAV_BAR` is
@@ -100,8 +101,8 @@ The bundle declares its own configuration in `fbapp-config.json`:
   game container. Leaving the property out fails the upload with
   **"Must specify property 'navigation_menu_version' in bundle config"**.
 
-In the dashboard, **Instant Games -> Settings -> Client Settings** should
-show the same platform version.
+The SDK version is selected separately in **Instant Games -> Settings ->
+Client Settings** and must match the version in the SDK script URL below.
 
 ## 5b. The SDK reference
 
@@ -113,7 +114,8 @@ show the same platform version.
 
 The upload validator rejects a bundle that does not reference a supported SDK
 this way, with **"Must Reference SDK via CDN"**. The version in the URL has
-to match `platform_version` in `fbapp-config.json`.
+to match the SDK version selected in Client Settings; it does not replace
+`platform_version` in `fbapp-config.json`.
 
 The script is a plain blocking script in the head, so `FBInstant` exists
 before the game module runs. If the SDK fails to load, the game keeps working

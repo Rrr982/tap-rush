@@ -175,7 +175,8 @@ Critical API usage:
 - `performHapticFeedbackAsync(type)`
 - `onPause()`, `onResume()`
 
-Bundle must include `public/fbapp-config.json` with `{"instant_games":{"platform_version":"8.0","orientation":"portrait"}}`.
+Bundle must include `public/fbapp-config.json` with
+`{"instant_games":{"platform_version":"RICH_GAMEPLAY","orientation":"PORTRAIT"}}`.
 
 ## API Endpoints
 
@@ -248,7 +249,7 @@ See `docs/api.md` for full request/response schemas.
 | Scores rejected | Check `FB_APP_SECRET` matches, nonce binding, time elapsed >= 2000ms, score within `maxSpawnableOrbs` |
 | "Signature could not be verified" | Check app secret, both HMAC encodings accepted but must match; see trust.ts logs |
 | Memory store in prod | `DATABASE_URL` missing or misconfigured |
-| Game won't load in Facebook | Check platform version 8.0, Zero Permissions set, CSP allows API domain |
+| Game won't load in Facebook | Check `RICH_GAMEPLAY` bundle config, SDK version, Zero Permissions, and CSP |
 | Type errors after changes | Run `npm run typecheck` - checks both backend and game |
 
 ## Git Workflow
