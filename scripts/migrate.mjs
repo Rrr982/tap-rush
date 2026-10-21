@@ -50,6 +50,27 @@ if (!url) {
 const sql = neon(url);
 const schema = await readFile(resolve(root, 'db', 'schema.sql'), 'utf8');
 
-console.log('[migrate] Applying db/schema.sql ...');
-await sql.query(schema);
+/**
+ * Split a SQL file into single statements.
+ *
+ * The Neon serverless driver sends every query as a prepared statement, and
+ * Postgres rejects a prepared statement that holds more than one command. The
+ * schema is a list of DDL statements, so they are applied one at a time.
+ */
+function splitStatements(sqlText) {
+  return sqlText
+    .split('\n')
+    .filter((line) => !line.trim().startsWith('--'))
+    .join('\n')
+    .split(';')
+    .map((statement) => statement.trim())
+    .filter((statement) => statement.length > 0);
+}
+
+const statements = splitStatements(schema);
+
+console.log(`[migrate] Applying db/schema.sql (${statements.length} statements) ...`);
+for (const statement of statements) {
+  await sql.query(statement);
+}
 console.log('[migrate] Done.');

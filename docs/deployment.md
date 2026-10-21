@@ -79,6 +79,14 @@ VITE_API_BASE_URL=https://<project>.vercel.app npm run build:game
 npm run bundle:fb
 ```
 
+The build reads `.env.local` from the repository root, so `VITE_API_BASE_URL`
+can live there instead of being passed on the command line. Check that the
+built bundle actually contains the URL before uploading it:
+
+```bash
+grep -o "https://[a-z0-9.-]*vercel.app" apps/game/dist/assets/*.js
+```
+
 `dist/tap-rush.zip` is the file to upload. See
 [facebook-setup.md](facebook-setup.md) for the dashboard walkthrough.
 
