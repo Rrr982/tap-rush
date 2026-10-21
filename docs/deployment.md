@@ -45,8 +45,22 @@ EXISTS` and `CREATE INDEX IF NOT EXISTS`, so running it twice is safe.
    static output in place and fails the deployment early if the game does not
    build.
 
-3. Add the environment variables (see below).
-4. Deploy. The API is now at `https://<project>.vercel.app`.
+3. Check **Project Settings -> General** before the first deploy:
+
+   | Setting                                         | Value     | Why                                                       |
+   | ----------------------------------------------- | --------- | --------------------------------------------------------- |
+   | Root Directory                                  | _(empty)_ | The repository root, so `api/` and `shared/` are visible  |
+   | Build Command                                   | _(empty)_ | `vercel.json` sets it to `npm run build:game`             |
+   | Output Directory                                | _(empty)_ | `vercel.json` sets it to `apps/game/dist`                 |
+   | Include source files outside the Root Directory | on        | Not needed when the root directory is the repository root |
+
+   A root directory of `apps/game` breaks both halves of the deployment: the
+   API functions are outside it, so `/api/*` answers 404, and
+   `outputDirectory` is resolved relative to it, so the build fails with
+   `STATIC_BUILD_NO_OUT_DIR`.
+
+4. Add the environment variables (see below).
+5. Deploy. The API is now at `https://<project>.vercel.app`.
 
 ### Environment variables
 

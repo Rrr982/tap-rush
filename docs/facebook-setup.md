@@ -86,17 +86,37 @@ The bundle declares its own configuration in `fbapp-config.json`:
 {
   "instant_games": {
     "platform_version": "8.0",
-    "orientation": "portrait"
+    "orientation": "portrait",
+    "navigation_menu_version": "NAV_BAR"
   }
 }
 ```
 
 - `platform_version` has to be `8.0`. Older versions are rejected.
 - `orientation` is `portrait`, which matches the game.
-- `navigation_menu_version` is deliberately left out so the default applies.
+- `navigation_menu_version` is required by the upload validator. `NAV_BAR` is
+  the only version the platform currently supports: a fixed top bar above the
+  game container. Leaving the property out fails the upload with
+  **"Must specify property 'navigation_menu_version' in bundle config"**.
 
 In the dashboard, **Instant Games -> Settings -> Client Settings** should
 show the same platform version.
+
+## 5b. The SDK reference
+
+`index.html` loads the Instant Games SDK from Meta's CDN:
+
+```html
+<script src="https://connect.facebook.net/en_US/fbinstant.8.0.js"></script>
+```
+
+The upload validator rejects a bundle that does not reference a supported SDK
+this way, with **"Must Reference SDK via CDN"**. The version in the URL has
+to match `platform_version` in `fbapp-config.json`.
+
+The script is a plain blocking script in the head, so `FBInstant` exists
+before the game module runs. If the SDK fails to load, the game keeps working
+offline and says so on the menu.
 
 ## 6. Build and upload the bundle
 

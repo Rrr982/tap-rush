@@ -110,8 +110,10 @@ right shape for a staged release.
 
 ## Zero runtime dependencies in the game
 
-The bundle imports nothing. Canvas, Web Audio, `fetch` and the Facebook SDK
-are all platform APIs. The SDK is loaded by the platform itself.
+The bundle imports nothing. Canvas, Web Audio and `fetch` are all platform
+APIs. The Facebook SDK is loaded from Meta's CDN with a script tag in
+`index.html`, because the upload validator requires the bundle to reference
+one of the supported SDKs that way.
 
 The only dependencies in the repository are on the backend side
 (`@neondatabase/serverless`) and in the toolchain.

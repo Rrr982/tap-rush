@@ -100,6 +100,8 @@ function readSignedPlayerInfo(raw: unknown): SignedPlayerInfo | null {
 
 export class FbBridge {
   private sdk: FbInstantSdk | null = null;
+  private pauseHandler: (() => void) | null = null;
+  private resumeHandler: (() => void) | null = null;
 
   get available(): boolean {
     return this.sdk !== null;
@@ -110,6 +112,11 @@ export class FbBridge {
     const sdk = await waitForSdk();
     if (!sdk) return false;
     this.sdk = sdk;
+
+    // The lifecycle callbacks are usually registered before the SDK has
+    // loaded, so they are attached here as well.
+    if (this.pauseHandler) sdk.onPause?.(this.pauseHandler);
+    if (this.resumeHandler) sdk.onResume?.(this.resumeHandler);
 
     try {
       await sdk.initializeAsync?.();
@@ -177,10 +184,12 @@ export class FbBridge {
   }
 
   onPause(callback: () => void): void {
+    this.pauseHandler = callback;
     this.sdk?.onPause?.(callback);
   }
 
   onResume(callback: () => void): void {
+    this.resumeHandler = callback;
     this.sdk?.onResume?.(callback);
   }
 

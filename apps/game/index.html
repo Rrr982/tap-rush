@@ -9,6 +9,12 @@
     <meta name="theme-color" content="#08060f" />
     <meta name="description" content="Tap Rush - a 30 second reflex game." />
     <title>Tap Rush - Neon Arcade</title>
+    <!--
+      The Instant Games SDK has to be referenced from Meta's CDN: the upload
+      validator rejects a bundle that does not. The version matches
+      `platform_version` in fbapp-config.json.
+    -->
+    <script src="https://connect.facebook.net/en_US/fbinstant.8.0.js"></script>
     <link rel="stylesheet" href="./src/styles.css" />
   </head>
   <body>
