@@ -86,14 +86,15 @@ The bundle declares its own configuration in `fbapp-config.json`:
 {
   "instant_games": {
     "platform_version": "8.0",
-    "orientation": "portrait",
+    "orientation": "PORTRAIT",
     "navigation_menu_version": "NAV_BAR"
   }
 }
 ```
 
 - `platform_version` has to be `8.0`. Older versions are rejected.
-- `orientation` is `portrait`, which matches the game.
+- `orientation` must be `PORTRAIT` (the config value is case-sensitive), which
+  matches the game.
 - `navigation_menu_version` is required by the upload validator. `NAV_BAR` is
   the only version the platform currently supports: a fixed top bar above the
   game container. Leaving the property out fails the upload with
