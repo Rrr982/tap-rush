@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#08060f" />
+    <meta name="description" content="Tap Rush - a 30 second reflex game." />
+    <title>Tap Rush - Neon Arcade</title>
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body>
+    <div id="app" data-screen="menu">
+      <div class="frame">
+        <section id="screen-menu" class="screen screen-menu">
+          <div class="logo">
+            <div class="logo-mark"></div>
+            <h1 class="title">TAP<span>RUSH</span></h1>
+            <p class="tagline">NEON ARCADE</p>
+          </div>
+
+          <div class="menu-stats">
+            <div class="stat">
+              <span class="stat-label">BEST</span>
+              <span class="stat-value" id="menu-best">0</span>
+            </div>
+            <div class="stat">
+              <span class="stat-label">RANK</span>
+              <span class="stat-value" id="menu-rank">&mdash;</span>
+            </div>
+          </div>
+
+          <button id="btn-play" class="btn btn-primary" type="button">PLAY</button>
+          <button id="btn-leaderboard" class="btn btn-ghost" type="button">LEADERBOARD</button>
+
+          <div class="nickname">
+            <label for="input-name">NAME</label>
+            <input
+              id="input-name"
+              type="text"
+              maxlength="16"
+              placeholder="RUSH 4F2A"
+              autocomplete="off"
+              autocapitalize="characters"
+              spellcheck="false"
+            />
+            <button id="btn-save-name" class="btn btn-small" type="button">SAVE</button>
+          </div>
+
+          <p class="hint" id="menu-hint"></p>
+        </section>
+
+        <section id="screen-game" class="screen screen-game">
+          <canvas id="canvas"></canvas>
+          <div class="hud">
+            <div class="hud-block">
+              <div class="hud-score" id="hud-score">0</div>
+              <div class="hud-streak" id="hud-streak">&nbsp;</div>
+            </div>
+            <div class="hud-block hud-right">
+              <div class="hud-timer" id="hud-timer">30</div>
+            </div>
+          </div>
+          <div class="timebar"><div class="timebar-fill" id="timebar-fill"></div></div>
+        </section>
+
+        <section id="screen-over" class="screen screen-over">
+          <div class="result">
+            <div class="badge" id="over-badge" hidden>NEW BEST</div>
+            <p class="result-label">SCORE</p>
+            <div class="result-score" id="over-score">0</div>
+            <p class="result-sub" id="over-sub"></p>
+          </div>
+          <div class="over-actions">
+            <button id="btn-share" class="btn btn-primary" type="button">SHARE</button>
+            <button id="btn-again" class="btn btn-ghost" type="button">PLAY AGAIN</button>
+            <button id="btn-over-leaderboard" class="btn btn-ghost" type="button">
+              LEADERBOARD
+            </button>
+          </div>
+        </section>
+
+        <div id="sheet-leaderboard" class="sheet" hidden>
+          <div class="sheet-panel">
+            <div class="sheet-head">
+              <h2>TOP 10</h2>
+              <button id="btn-close-sheet" class="btn btn-icon" type="button" aria-label="Close">
+                &#10005;
+              </button>
+            </div>
+            <ol class="board" id="board-list"></ol>
+            <p class="sheet-status" id="board-status"></p>
+          </div>
+        </div>
+
+        <div id="toast" class="toast" hidden></div>
+      </div>
+    </div>
+
+    <script type="module" src="./src/main.ts"></script>
+  </body>
+</html>

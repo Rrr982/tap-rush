@@ -1,0 +1,46 @@
+{
+  "name": "tap-rush",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Tap Rush - a portrait Facebook Instant Game with a trust-first leaderboard backend.",
+  "workspaces": [
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "npm run build -w @tapurush/game",
+    "build:game": "npm run build -w @tapurush/game",
+    "bundle:fb": "node scripts/bundle.mjs",
+    "dev": "npm run dev -w @tapurush/game",
+    "dev:api": "vercel dev",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p apps/game/tsconfig.json --noEmit",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "db:migrate": "node scripts/migrate.mjs"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/archiver": "^8.0.0",
+    "@types/node": "^26.6.5",
+    "archiver": "^8.0.0",
+    "eslint": "^10.13.0",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.13.0",
+    "prettier": "^3.9.10",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.72.0",
+    "vitest": "^5.0.5"
+  },
+  "allowScripts": {
+    "esbuild@0.27.0": true
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.2.0"
+  }
+}

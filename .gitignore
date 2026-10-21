@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.vercel/
+*.local
+.env
+.env.*
+!.env.example
+*.log
+npm-debug.log*
+.DS_Store
+.idea/
+.vscode/
+coverage/
+apps/game/dist/
